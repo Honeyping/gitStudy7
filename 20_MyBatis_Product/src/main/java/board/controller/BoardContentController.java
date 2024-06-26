@@ -33,7 +33,7 @@ public class BoardContentController {
 			session.setAttribute("destination", "redirect:/content.brd?num=" + num + "&pageNumber=" + pageNumber + "&whatColumn=" + whatColumn + "&keyword=" + keyword);
 			return "redirect:/loginForm.mb";
 		}else {
-			
+		// kim	
 		int readcount = boardDao.getReadCount(num);
 		boardDao.updateReadCount(num);
 		BoardBean bb = boardDao.viewContent(num);
