@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member.model.Member">
+	<select id="getTotalCount" resultType="int">
+		select count(*) from members
+		<if test="whatColumn == 'all'">
+			where name like #{keyword}
+			or gender like #{keyword}
+			or hobby like #{keyword}
+		</if>
+		<if test="whatColumn == 'name'">
+			where name like #{keyword}
+		</if>
+		<if test="whatColumn == 'gender'">
+			where gender like #{keyword}
+		</if>
+		<if test="whatColumn == 'hobby'">
+			where hobby like #{keyword}
+		</if>
+	</select>
+	
+	<select id = "getMemberList" resultType = "member.model.MemberBean" parameterType = "hashmap">
+  		select * from members
+  		<if test="whatColumn == 'all'">
+			where name like #{keyword}
+			or gender like #{keyword}
+			or hobby like #{keyword}
+		</if>
+  		<if test = "whatColumn == 'name'">
+  			where name like #{keyword}
+  		</if>
+  		
+  		<if test = "whatColumn == 'gender'">
+  			where gender like #{keyword}
+  		</if>
+  		
+  		<if test="whatColumn == 'hobby'">
+			where hobby like #{keyword}
+		</if>
+  	</select>
+  	
+  	<insert id="insertMember">
+ 		insert into members(id, name, password, gender, hobby, address1,address2, mpoint,hiredate)
+		values(#{id},#{name},#{password},#{gender},#{hobby},#{address1},#{address2},#{mpoint},sysdate)
+ 	</insert>
+ 	
+ 	<delete id="deleteMember">
+ 		delete from members where id =#{id}
+ 	</delete>
+ 	
+ 	<select id="getMember" resultType="member.model.MemberBean">
+ 		select * from members where id =#{id}
+ 	</select>
+ 	
+ 	<update id="updateMember">
+		update members set name=#{name}, password=#{password}, gender=#{gender}, hobby=#{hobby}, address1=#{address1}, address2=#{address2}, mpoint=#{mpoint}
+		where id=#{id}
+	</update>
+ 	
+ 	<select id="loginMember" resultType="member.model.MemberBean">
+ 		select * from members where id = #{id}
+ 	</select>
+ 	
+ 	<update id="updateMpoint">
+ 		update members set mpoint = mpoint + #{mpoint}
+ 		where id = #{id}
+ 	</update>
+ 	
+</mapper>
+
+<!-- member.xml -->
+
+
+
+
+
+
+
+
